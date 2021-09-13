@@ -1,0 +1,28 @@
+
+- refactoring**
+- error handling
+- firebase connection
+- app coupling
+- project structure
+- app architecture 
+- db architecture
+- 404 pages etc
+- page routing/history
+- plan components (atomic design principle)
+- micro-frontends
+- research chat ui components
+- use typescript or js 
+- drag and drop (like duolingo) for sentence exercise
+- component/scene/view routing
+
+- emotion.js
+
+things to learn
+- react contexts
+- redux-toolkit
+- axios
+- firebase real time db
+- react-router-dom
+- pre vs post-css (scss vs tailwind)
+- typescript
+- redux middleware (thunk & saga)

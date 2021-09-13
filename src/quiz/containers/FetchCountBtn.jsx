@@ -40,10 +40,11 @@ const FetchCountBtn = () => {
       <h2>No. of Questions in each Category</h2>
       <select
         name="category"
+        value={selected}
         className="form-select form-select-sm m-2"
         onChange={(e) => setSelected(e.target.value)}
       >
-        <option value="" disabled selected hidden>
+        <option value="" disabled hidden>
           Select a category...
         </option>
         {options &&
