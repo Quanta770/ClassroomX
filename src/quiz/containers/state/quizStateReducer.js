@@ -25,6 +25,13 @@ const quizStateReducer = (state = DefaultState, action) => {
         ...state,
         end: action.payload,
       };
+
+    case Actions.QUIZ_RESET:
+      return {
+        ...state,
+        score: 0,
+        end: false,
+      };
     default:
       return state;
   }

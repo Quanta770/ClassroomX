@@ -1,6 +1,6 @@
 import "../quizLongBtn.css";
 
-const QuizLongBtn = ({ textValue, onClick, disabled }) => {
+const QuizPrimaryBtn = ({ textValue, onClick, disabled }) => {
   return (
     <button
       type="button"
@@ -13,4 +13,4 @@ const QuizLongBtn = ({ textValue, onClick, disabled }) => {
   );
 };
 
-export default QuizLongBtn;
+export default QuizPrimaryBtn;

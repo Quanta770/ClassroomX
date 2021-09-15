@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { setQuizEnd, setQuizScore } from "../../actions/actionQuiz";
+import { resetQuiz, setQuizEnd, setQuizScore } from "../../actions/actionQuiz";
 import QuizButton from "../component/QuizButton";
-import QuizLongBtn from "../component/QuizLongBtn";
+import QuizPrimaryBtn from "../component/QuizPrimaryBtn";
+import { ProgressBar } from "react-bootstrap";
 
 const QuizState = () => {
   const dispatch = useDispatch();
@@ -13,7 +14,6 @@ const QuizState = () => {
   const [selectedAnswer, setSelectedAnswer] = useState("");
   const [options, setOptions] = useState([]);
   const [correct, setCorrect] = useState(false);
-  const [currentScore, setCurrentScore] = useState(0);
 
   const questionData = useSelector((state) => state.quizState);
   const [index, setIndex] = useState(0);
@@ -42,16 +42,6 @@ const QuizState = () => {
     }
   }, [selected]);
 
-  useEffect(() => {
-    if (index === 5) {
-      // dispatch({
-      //   type: "QUIZ_END",
-      //   payload: true,
-      // });
-      dispatch(setQuizEnd(true));
-    }
-  }, [index]);
-
   const handleClick = (i, e) => {
     setSelectedAnswer(e.target.textContent);
     setSelected(i);
@@ -60,8 +50,8 @@ const QuizState = () => {
   const handleCheck = () => {
     setAnswered(true);
     if (selectedAnswer === answer) {
-      setCurrentScore(currentScore + 1);
-      dispatch(setQuizScore(currentScore));
+      // setCurrentScore(currentScore + 1);
+      dispatch(setQuizScore(quizScore + 1));
       setCorrect(true);
     }
     console.log(quizScore);
@@ -85,12 +75,15 @@ const QuizState = () => {
 
   const changeBtn = (foo) => {
     if (foo) {
-      return <QuizLongBtn textValue="Check" onClick={handleCheck} />;
+      return <QuizPrimaryBtn textValue="Check" onClick={handleCheck} />;
     } else {
       return (
-        <QuizLongBtn
+        <QuizPrimaryBtn
           textValue="Continue"
           onClick={() => {
+            if (index + 1 === questionData.questions.length) {
+              dispatch(setQuizEnd(true));
+            }
             setIndex(index + 1);
             reset();
           }}
@@ -102,7 +95,9 @@ const QuizState = () => {
   const showData = () => {
     return (
       <div>
-        <h2>Score: {currentScore + " / " + questionData.questions.length}</h2>
+        <h2>Score: {quizScore + " / " + questionData.questions.length}</h2>
+        <ProgressBar now={(quizScore / questionData.questions.length) * 100} />
+        {console.log("score", quizScore)}
         <p>Question {index + 1}</p>
         <h3 dangerouslySetInnerHTML={{ __html: question.question }}></h3>
         <div>
@@ -123,9 +118,8 @@ const QuizState = () => {
 
   return (
     <div>
-      {<h3>Current score: {currentScore}</h3>}
       {showData()}
-
+      {console.log("index: ", index)}
       <div>Selected: {selectedAnswer}</div>
       <div>Correct ans: {answer}</div>
       {answered ? checkResult() : null}
@@ -133,7 +127,7 @@ const QuizState = () => {
       {answered ? (
         changeBtn(false)
       ) : (
-        <QuizLongBtn
+        <QuizPrimaryBtn
           textValue="Check"
           onClick={handleCheck}
           disabled={isDisabled}

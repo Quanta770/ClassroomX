@@ -17,6 +17,7 @@ export const Actions = {
   SET_SCORE: "SET_SCORE",
   SET_QUESTION_INDEX: "SET_QUESTION_INDEX",
   QUIZ_END: "QUIZ_END",
+  QUIZ_RESET: "QUIZ_RESET",
 };
 
 //action creation function
@@ -31,3 +32,4 @@ export const setQuizScore = createAction(Actions.SET_SCORE);
 export const setQuestions = createAction(Actions.ADD_QUESTIONS);
 export const setIndex = createAction(Actions.SET_QUESTION_INDEX);
 export const setQuizEnd = createAction(Actions.QUIZ_END);
+export const resetQuiz = createAction(Actions.QUIZ_RESET);
